@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LightBulb</string>
+    <string name="permdesc_flashlight"></string>
+</resources>
