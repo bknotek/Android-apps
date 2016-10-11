@@ -12,7 +12,7 @@
 
 -Fragments: MemeFragment and MemeListFragment
 
--MemeFragment:
+*MemeFragment:
 
   -This is where the user cutomizes and creates and
   meme.
@@ -36,7 +36,7 @@
      a meme object from the Meme class, and adds it 
      to the AllMemes list
 
--MemeListFragment:
+*MemeListFragment:
 
   -This is where all the Meme objects in the AllMemes 
     List are added to a RecyclerView
@@ -86,7 +86,7 @@
    
 ************ ALTERNATIVES****************
 
-There are only a couple things that I planned on doing
+*There are only a couple things that I planned on doing
  differently when I initially started this assignment.
 
 
@@ -126,13 +126,13 @@ There are only a couple things that I planned on doing
 
 **************PROBLEMS******************
 
-I managed to meet all requirements in the rubric, but there
+-I managed to meet all requirements in the rubric, but there
 is one problem I could never solve:
 
 
-I could never get the program to save the state of the closeup
+-I could never get the program to save the state of the closeup
 dialog box, so when the orientaion changes the dialogbox
 disappears and the user has to select the meme again.
 
-The program throws a WindowLeaked error
+-The program throws a WindowLeaked error
 
