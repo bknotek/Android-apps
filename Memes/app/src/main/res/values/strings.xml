@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Memes</string>
+    <string name="bottom_text">BOTTOM TEXT</string>
+    <string name="top_text">TOP TEXT</string>
+    <string name="create_button_text">CREATE MEME</string>
+    <string name="choose_image_text">PRESS TO ENTER IMAGE URL</string>
+    <string name="meme_title_text">ENTER MEME TITLE</string>
+    <string name="new_meme">ADD NEW MEME</string>
+</resources>

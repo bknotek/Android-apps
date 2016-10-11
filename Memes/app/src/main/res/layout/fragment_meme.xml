@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout"
+    android:background="@android:color/black"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <Button
+        android:id="@+id/choose_Image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_image_text"
+        android:textSize="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="50dp"/>
+
+    <EditText
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="30dp"
+        android:backgroundTint="@android:color/white"
+        android:selectAllOnFocus="true"
+        android:text="@string/meme_title_text"/>
+
+    <ImageView
+        android:id="@+id/meme_Image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/no_image"
+        android:maxWidth="300dp"
+        android:maxHeight="250dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/black"
+        />
+
+    <EditText
+        android:id="@+id/top_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/meme_Image"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:selectAllOnFocus="true"
+        android:maxEms="6"
+        android:gravity="center"
+        android:text="@string/top_text"/>
+
+    <EditText
+        android:id="@+id/bottom_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/meme_Image"
+        android:layout_marginBottom="25dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:maxEms="7"
+        android:gravity="center"
+        android:selectAllOnFocus="true"
+        android:text="@string/bottom_text"/>
+
+    <Button
+        android:id="@+id/create_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/create_button_text"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:textSize="20dp"
+        />
+
+</RelativeLayout>

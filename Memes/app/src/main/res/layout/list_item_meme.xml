@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/list_item_id"
+    android:background="@drawable/border"
+
+
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+
+        >
+
+        <ImageView
+            android:id="@+id/list_meme_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="90dp"
+            android:maxWidth="70dp"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/holo_blue_light"
+            android:padding="3dp"
+            />
+        <TextView
+            android:id="@+id/list_item_thumbnail_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@id/list_meme_thumbnail"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="5dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+
+            android:maxEms="8"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="bottom text"
+            />
+        <TextView
+            android:id="@+id/list_item_thumbnail_top_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/list_meme_thumbnail"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="5dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:maxEms="8"
+            android:gravity="center"
+            android:text="top text"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/list_item_meme_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MEME TITLE"
+        android:layout_marginLeft="100dp"
+        android:textSize="15dp"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/background_dark"
+        />
+
+</RelativeLayout>
