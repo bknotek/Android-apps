@@ -123,6 +123,7 @@ There are only a couple things that I planned on doing
  is a bit faster than switching to a new Activity
 
 
+
 **************PROBLEMS******************
 
 I managed to meet all requirements in the rubric, but there
