@@ -104,6 +104,10 @@
 -It woud go to a new line and become hard to see
 
 
+
+
+
+
 -The other differnce had to do with the dialog box that
  shows the close up of the meme when the user selects
  one from the list.
