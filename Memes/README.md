@@ -12,7 +12,7 @@
 
 -Fragments: MemeFragment and MemeListFragment
 
--MemeFragment
+-MemeFragment:
 
   -This is where the user cutomizes and creates and
   meme.
@@ -36,7 +36,7 @@
      a meme object from the Meme class, and adds it 
      to the AllMemes list
 
--MemeListFragment
+-MemeListFragment:
 
   -This is where all the Meme objects in the AllMemes 
     List are added to a RecyclerView
