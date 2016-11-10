@@ -19,6 +19,7 @@ public class AllMemes {
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
+
     public static AllMemes get(Context context){
 
         if(allMemes ==  null){
@@ -26,6 +27,8 @@ public class AllMemes {
 
         }
         return allMemes;
+
+
     }
 
     private AllMemes(Context context){
@@ -34,54 +37,17 @@ public class AllMemes {
         mDatabase = new MemeBaseHelper(mContext)
                 .getWritableDatabase();
 
-        //pre-made memes
-        Meme philosoraptor_01 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
-                "WHY DO NOSES RUN...",
-                "...WHILE FEET SMELL",
-                "PHILOSORAPTOR");
-        this.addMeme(philosoraptor_01);
-        Meme philosoraptor_02 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
-                "IF YOU HAVE X-RAY VISION AND YOU CLOSE YOUR EYES,",
-                "CAN YOU STILL SEE?",
-                "PHILOSORAPTOR");
-        this.addMeme(philosoraptor_02);
-        Meme bad_luck_01 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
-                "DOWNLOADS ONE SONG",
-                "PRISON",
-                "BAD LUCK BRIAN");
-        this.addMeme(bad_luck_01);
-        Meme bad_luck_02 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
-                "PUTS EYE DROPS IN",
-                "SUPER GLUE",
-                "BAD LUCK BRIAN");
-        this.addMeme(bad_luck_02);
-        Meme aliens_01 = new Meme("http://www.relatably.com/m/img/meme-generator-ancient-aliens-guy/26am.jpg",
-                "IM NOT SAYING IT WAS ALIENS",
-                "BUT IT WAS ALIENS",
-                "ANCIENT ALIENS");
-        this.addMeme(aliens_01);
-
-        Meme keanu_01 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
-                "WHAT IF AIR IS ACTUALLY POISONOUS",
-                "AND IT JUST TAKES 80 YEARS TO KILL US",
-                "CONSPIRACY KEANU");
-        this.addMeme(keanu_01);
-        Meme keanu_02 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
-                "WHAT IF ONLY THE STICKERS",
-                "WERE MADE IN CHINA",
-                "CONSPIRACY KEANU");
-        this.addMeme(keanu_02);
-        Meme ten_guy_01 = new Meme("https://i.imgflip.com/11igxo.jpg",
-                "\"IT'S TOO BRIGHT\"",
-                "TURNS DOWN MUSIC",
-                "10 GUY");
-        this.addMeme(ten_guy_01);
     }
 
     public void addMeme(Meme m){
 
         ContentValues values = getContentValues(m);
         mDatabase.insert(MemeDbSchema.MemeTable.NAME,null,values);
+    }
+
+    public void deleteMeme(Meme m, String title ){
+        ContentValues values = getContentValues(m);
+        mDatabase.delete(MemeDbSchema.MemeTable.NAME,"title=?",new String[]{title});
     }
 
     public List<Meme> getMemes(){
@@ -132,6 +98,8 @@ public class AllMemes {
         values.put(MemeDbSchema.MemeTable.Cols.TOPTEXT,meme.getTopText());
         values.put(MemeDbSchema.MemeTable.Cols.BOTTOMTEXT,meme.getBottomText());
         values.put(MemeDbSchema.MemeTable.Cols.IMAGEURL,meme.getImageURL());
+
+
 
         return values;
     }

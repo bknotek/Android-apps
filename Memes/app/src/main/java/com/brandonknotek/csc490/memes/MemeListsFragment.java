@@ -29,6 +29,60 @@ public class MemeListsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        //pre-made memes
+        Meme philosoraptor_01 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
+                "WHY DO NOSES RUN...",
+                "...WHILE FEET SMELL",
+                "-PHILOSORAPTOR-");
+
+        Meme philosoraptor_02 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
+                "IF YOU HAVE X-RAY VISION AND YOU CLOSE YOUR EYES,",
+                "CAN YOU STILL SEE?",
+                "-PHILOSORAPTOR-");
+        AllMemes.get(getActivity()).deleteMeme(philosoraptor_02,"-PHILOSORAPTOR-");
+        AllMemes.get(getActivity()).addMeme(philosoraptor_01);
+        AllMemes.get(getActivity()).addMeme(philosoraptor_02);
+
+        Meme bad_luck_01 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
+                "DOWNLOADS ONE SONG",
+                "PRISON",
+                "-BAD LUCK BRIAN-");
+
+        Meme bad_luck_02 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
+                "PUTS EYE DROPS IN",
+                "SUPER GLUE",
+                "-BAD LUCK BRIAN-");
+        AllMemes.get(getActivity()).deleteMeme(bad_luck_02,"-BAD LUCK BRIAN-");
+        AllMemes.get(getActivity()).addMeme(bad_luck_01);
+        AllMemes.get(getActivity()).addMeme(bad_luck_02);
+
+        Meme aliens_01 = new Meme("http://www.relatably.com/m/img/meme-generator-ancient-aliens-guy/26am.jpg",
+                "IM NOT SAYING IT WAS ALIENS",
+                "BUT IT WAS ALIENS",
+                "-ANCIENT ALIENS-");
+        AllMemes.get(getActivity()).deleteMeme(aliens_01,"-ANCIENT ALIENS-");
+        AllMemes.get(getActivity()).addMeme(aliens_01);
+
+        Meme keanu_01 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
+                "WHAT IF AIR IS ACTUALLY POISONOUS",
+                "AND IT JUST TAKES 80 YEARS TO KILL US",
+                "-CONSPIRACY KEANU-");
+
+        Meme keanu_02 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
+                "WHAT IF ONLY THE STICKERS",
+                "WERE MADE IN CHINA",
+                "-CONSPIRACY KEANU-");
+        AllMemes.get(getActivity()).deleteMeme(keanu_02,"-CONSPIRACY KEANU-");
+        AllMemes.get(getActivity()).addMeme(keanu_01);
+        AllMemes.get(getActivity()).addMeme(keanu_02);
+
+        Meme ten_guy_01 = new Meme("https://i.imgflip.com/11igxo.jpg",
+                "\"IT'S TOO BRIGHT\"",
+                "TURNS DOWN MUSIC",
+                "-10 GUY-");
+        AllMemes.get(getActivity()).deleteMeme(ten_guy_01,"-10 GUY-");
+        AllMemes.get(getActivity()).addMeme(ten_guy_01);
+
     }
 
     @Override
@@ -84,6 +138,8 @@ public class MemeListsFragment extends Fragment {
         AllMemes allMemes = AllMemes.get(getActivity());
         List<Meme> memes = allMemes.getMemes();
 
+
+
         if(memeAdapter==null){
             memeAdapter = new MemeAdapter(memes);
             memeRecyclerView.setAdapter(memeAdapter);}
@@ -119,7 +175,7 @@ public class MemeListsFragment extends Fragment {
 
             Picasso.with(getContext()).load(meme.getImageURL()).into(memeImage);
             memeImage.setBackground(getResources().getDrawable(R.drawable.border));
-            titleText.setText(String.valueOf(meme.getMemeTitle()));
+            titleText.setText("-"+String.valueOf(meme.getMemeTitle())+"-");
             topText.setText(String.valueOf(meme.getTopText()));
             bottomText.setText(String.valueOf(meme.getBottomText()));
         }
@@ -137,6 +193,7 @@ public class MemeListsFragment extends Fragment {
         private List<Meme> memes;
 
         public MemeAdapter(List<Meme> memes){
+
             this.memes = memes;
         }
 

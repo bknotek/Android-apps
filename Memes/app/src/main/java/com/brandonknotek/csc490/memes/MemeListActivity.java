@@ -23,6 +23,8 @@ public class MemeListActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         return new MemeListsFragment();
+
+
     }
 
 
