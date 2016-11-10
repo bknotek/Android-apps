@@ -1,15 +1,11 @@
 package com.brandonknotek.csc490.memes;
 
-import android.graphics.drawable.Drawable;
-
-import java.io.Serializable;
 import java.util.UUID;
 
+public class Meme {
 
-public class Meme implements Serializable{
 
-
-    private Drawable memeImage;
+    private String imageURL;
     private String topText;
     private String bottomText;
     private String memeTitle;
@@ -17,12 +13,17 @@ public class Meme implements Serializable{
 
     public Meme(){
         //Generate id
-       meme_id = UUID.randomUUID();
+        this(UUID.randomUUID());
     }
-    public Meme (Drawable memeImage,String topText,String bottomText,String memeTitle){
-        meme_id = UUID.randomUUID();
 
-        this.memeImage = memeImage;
+    public Meme(UUID id){
+        meme_id = id;
+    }
+
+    public Meme (String memeImage,String topText,String bottomText,String memeTitle){
+
+        meme_id = UUID.randomUUID();
+        this.imageURL = memeImage;
         this.topText = topText;
         this.bottomText = bottomText;
         this.memeTitle =memeTitle;
@@ -32,12 +33,12 @@ public class Meme implements Serializable{
         return meme_id;
     }
 
-    public Drawable getMemeImage() {
-        return memeImage;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setMemeImage(Drawable memeImage) {
-        this.memeImage = memeImage;
+    public void setMemeImage(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getTopText() {

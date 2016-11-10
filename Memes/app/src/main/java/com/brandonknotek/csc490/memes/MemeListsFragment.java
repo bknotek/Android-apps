@@ -1,11 +1,9 @@
 package com.brandonknotek.csc490.memes;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 
@@ -47,7 +44,6 @@ public class MemeListsFragment extends Fragment {
         memeRecyclerView = (RecyclerView) view.findViewById(R.id.meme_recycler_view);
         memeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         updateUI();
 
         return view;
@@ -70,7 +66,7 @@ public class MemeListsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_item_new_meme:
-                Intent intent = MemeActivity.newIntent(getActivity());
+                Intent intent = MemeActivity.newIntent(getActivity(),true);
                 startActivity(intent);
                 return true;
             default:
@@ -92,6 +88,7 @@ public class MemeListsFragment extends Fragment {
             memeAdapter = new MemeAdapter(memes);
             memeRecyclerView.setAdapter(memeAdapter);}
         else{
+            memeAdapter.setMemes(memes);
             memeAdapter.notifyDataSetChanged();
         }
 
@@ -104,12 +101,6 @@ public class MemeListsFragment extends Fragment {
         private TextView titleText;
         private TextView topText;
         private TextView bottomText;
-
-
-        private ImageView dialogImage;
-        private TextView dialogTopText;
-        private TextView dialogBottomText;
-
 
         public MemeHolder(View itemView){
 
@@ -126,7 +117,7 @@ public class MemeListsFragment extends Fragment {
         public void bindMeme(Meme meme){
             this.meme = meme;
 
-            memeImage.setImageDrawable(meme.getMemeImage());
+            Picasso.with(getContext()).load(meme.getImageURL()).into(memeImage);
             memeImage.setBackground(getResources().getDrawable(R.drawable.border));
             titleText.setText(String.valueOf(meme.getMemeTitle()));
             topText.setText(String.valueOf(meme.getTopText()));
@@ -137,28 +128,8 @@ public class MemeListsFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            ///brings up a view of the meme
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            LayoutInflater factory = LayoutInflater.from(getContext());
-            View view = factory.inflate(R.layout.alert_dialog_meme,null);
-
-            dialogImage = (ImageView) view.findViewById(R.id.dialog_image);
-            dialogTopText = (TextView) view.findViewById(R.id.dialog_top_text);
-            dialogBottomText = (TextView) view.findViewById(R.id.dialog_bottom_text);
-
-            dialogImage.setImageDrawable(memeImage.getDrawable());
-            dialogTopText.setText(topText.getText());
-            dialogBottomText.setText(bottomText.getText());
-
-            builder.setView(view);
-            builder.setTitle(titleText.getText());
-            builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
+            Intent intent = MemeActivity.newIntent(getActivity(), meme.getMeme_id(),false);
+            startActivity(intent);
         }
     }
 
@@ -190,10 +161,9 @@ public class MemeListsFragment extends Fragment {
         public int getItemCount() {
             return memes.size();
         }
+
+        public void setMemes(List<Meme> memes){
+            this.memes = memes;
+        }
     }
-
-
-
-
-
 }

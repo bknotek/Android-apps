@@ -1,18 +1,23 @@
 package com.brandonknotek.csc490.memes;
 
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-
-import java.io.Serializable;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import com.brandonknotek.csc490.memes.database.MemeBaseHelper;
+import com.brandonknotek.csc490.memes.database.MemeCursorWrapper;
+import com.brandonknotek.csc490.memes.database.MemeDbSchema;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
-public class AllMemes implements Serializable {
+public class AllMemes {
     public static AllMemes allMemes;
 
-    public List<Meme> memes;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     public static AllMemes get(Context context){
 
@@ -25,73 +30,124 @@ public class AllMemes implements Serializable {
 
     private AllMemes(Context context){
 
-        memes = new ArrayList<>();
+        mContext = context.getApplicationContext();
+        mDatabase = new MemeBaseHelper(mContext)
+                .getWritableDatabase();
 
-
-        Meme philosoraptor_01 = new Meme(ContextCompat.getDrawable(context,R.drawable.philosoraptor_meme),
+        //pre-made memes
+        Meme philosoraptor_01 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
                 "WHY DO NOSES RUN...",
                 "...WHILE FEET SMELL",
                 "PHILOSORAPTOR");
-        memes.add(philosoraptor_01);
-        Meme philosoraptor_02 = new Meme(ContextCompat.getDrawable(context,R.drawable.philosoraptor_meme),
+        this.addMeme(philosoraptor_01);
+        Meme philosoraptor_02 = new Meme("http://i1.kym-cdn.com/photos/images/facebook/000/085/283/philosoraptor.jpg",
                 "IF YOU HAVE X-RAY VISION AND YOU CLOSE YOUR EYES,",
                 "CAN YOU STILL SEE?",
                 "PHILOSORAPTOR");
-        memes.add(philosoraptor_02);
-        Meme bad_luck_01 = new Meme(ContextCompat.getDrawable(context,R.drawable.bad_luck_brian_meme),
+        this.addMeme(philosoraptor_02);
+        Meme bad_luck_01 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
                 "DOWNLOADS ONE SONG",
                 "PRISON",
                 "BAD LUCK BRIAN");
-        memes.add(bad_luck_01);
-        Meme bad_luck_02 = new Meme(ContextCompat.getDrawable(context,R.drawable.bad_luck_brian_meme),
+        this.addMeme(bad_luck_01);
+        Meme bad_luck_02 = new Meme("http://www.dibujatumeme.com/templates/bad-luck-brian-meme-template.jpg",
                 "PUTS EYE DROPS IN",
                 "SUPER GLUE",
                 "BAD LUCK BRIAN");
-        memes.add(bad_luck_02);
-        Meme aliens_01 = new Meme(ContextCompat.getDrawable(context,R.drawable.aliens_meme),
+        this.addMeme(bad_luck_02);
+        Meme aliens_01 = new Meme("http://www.relatably.com/m/img/meme-generator-ancient-aliens-guy/26am.jpg",
                 "IM NOT SAYING IT WAS ALIENS",
                 "BUT IT WAS ALIENS",
                 "ANCIENT ALIENS");
-        memes.add(aliens_01);
+        this.addMeme(aliens_01);
 
-        Meme keanu_01 = new Meme(ContextCompat.getDrawable(context,R.drawable.conspiracy_keunu),
+        Meme keanu_01 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
                 "WHAT IF AIR IS ACTUALLY POISONOUS",
                 "AND IT JUST TAKES 80 YEARS TO KILL US",
                 "CONSPIRACY KEANU");
-        memes.add(keanu_01);
-        Meme keanu_02 = new Meme(ContextCompat.getDrawable(context,R.drawable.conspiracy_keunu),
+        this.addMeme(keanu_01);
+        Meme keanu_02 = new Meme("https://s-media-cache-ak0.pinimg.com/564x/34/da/db/34dadb7ef616c7239677d6cf40914106.jpg",
                 "WHAT IF ONLY THE STICKERS",
                 "WERE MADE IN CHINA",
                 "CONSPIRACY KEANU");
-        memes.add(keanu_02);
-        Meme ten_guy_01 = new Meme(ContextCompat.getDrawable(context,R.drawable.ten_guy_meme),
+        this.addMeme(keanu_02);
+        Meme ten_guy_01 = new Meme("https://i.imgflip.com/11igxo.jpg",
                 "\"IT'S TOO BRIGHT\"",
                 "TURNS DOWN MUSIC",
                 "10 GUY");
-        memes.add(ten_guy_01);
+        this.addMeme(ten_guy_01);
     }
 
     public void addMeme(Meme m){
 
-        memes.add(m);
-
+        ContentValues values = getContentValues(m);
+        mDatabase.insert(MemeDbSchema.MemeTable.NAME,null,values);
     }
-
 
     public List<Meme> getMemes(){
 
+        List<Meme> memes = new ArrayList<>();
+        MemeCursorWrapper cursor = queryMemes(null,null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                memes.add(cursor.getMeme());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
         return memes;
     }
 
-    public Meme getMeme(String id){
+    public Meme getMeme(UUID id){
 
-        for(Meme meme : memes){
-            if(meme.getMeme_id().equals(id)){
-                return meme;
+        MemeCursorWrapper cursor = queryMemes(MemeDbSchema.MemeTable.Cols.UUID + " = ?",
+                                              new String[] { id.toString() });
+        try {
+            if (cursor.getCount() == 0) {
+                return null;
             }
+            cursor.moveToFirst();
+            return cursor.getMeme();
+        } finally {
+            cursor.close();
         }
-            return null;
         }
+
+    public void updateMeme(Meme meme){
+        String uuidString = meme.getMeme_id().toString();
+        ContentValues values = getContentValues(meme);
+
+        mDatabase.update(MemeDbSchema.MemeTable.NAME, values,
+                MemeDbSchema.MemeTable.Cols.UUID + " = ?",
+                new String[] { uuidString });
+    }
+
+    private static ContentValues getContentValues(Meme meme){
+        ContentValues values = new ContentValues();
+        values.put(MemeDbSchema.MemeTable.Cols.UUID,meme.getMeme_id().toString());
+        values.put(MemeDbSchema.MemeTable.Cols.TITLE,meme.getMemeTitle());
+        values.put(MemeDbSchema.MemeTable.Cols.TOPTEXT,meme.getTopText());
+        values.put(MemeDbSchema.MemeTable.Cols.BOTTOMTEXT,meme.getBottomText());
+        values.put(MemeDbSchema.MemeTable.Cols.IMAGEURL,meme.getImageURL());
+
+        return values;
+    }
+
+    private MemeCursorWrapper queryMemes(String whereClause, String[] whereArgs) {
+        Cursor cursor = mDatabase.query(
+                MemeDbSchema.MemeTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+        return new MemeCursorWrapper(cursor);
+    }
     }
 
 

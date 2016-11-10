@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-
 import java.util.UUID;
 
 public class MemeListActivity extends SingleFragmentActivity {
@@ -18,15 +17,12 @@ public class MemeListActivity extends SingleFragmentActivity {
 
     public static Intent newIntent(Context packageContext, UUID memeId){
         Intent intent = new Intent(packageContext, MemeListActivity.class);
-
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
-
         return new MemeListsFragment();
-
     }
 
 
